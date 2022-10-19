@@ -39,6 +39,8 @@ public class LogIn
 	@FindBy(xpath="//aside[@id='column-right']//a[text()='Register']")
 	private WebElement register;
 	
+/*-----------------------page methods-----------------------------*/
+	
 	
 	public boolean pageValidation(WebDriver driver)
 	{
@@ -65,6 +67,12 @@ public class LogIn
 		
 	}
 	
+	public ForgotPassword clickonforgetpasswordlink() 
+	{
+		ForgotPasswordLink.click();
+		return new ForgotPassword(localdriver);
+		
+	}
 	public RegistrationObjects clickonmyAccountBtn() 
 	{
 		myAccount.click();
@@ -79,7 +87,17 @@ public class LogIn
 		
 	}
 	
+	public String getPlaceholderEmailTextbox()
+	{
+		String placeholdervalue=enterEmailTextbox.getAttribute("placeholder");
+		return placeholdervalue;
+	}
 	
+	public String getPlaceholdPasswordTextbox()
+	{
+		String placeholdervalue=enterPasswordTextbox.getAttribute("placeholder");
+		return placeholdervalue;
+	}
 	
 	
 	
@@ -102,5 +120,22 @@ public class LogIn
 		
 		
 	}
+
+
+
+	public WebElement getForgotPasswordLink()
+	{
+		return ForgotPasswordLink;
+	}
+
+
+
+	public void setForgotPasswordLink(WebElement forgotPasswordLink) 
+	{
+		ForgotPasswordLink = forgotPasswordLink;
+	}
+	
+	
+	
 	
 }

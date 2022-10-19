@@ -77,6 +77,9 @@ public class CommonElements
 	@FindBy(xpath="//aside[@id='column-right']//a[text()='Register']")
 	private WebElement register;
 	
+	@FindBy(xpath="//aside[@id='column-right']//a[text()='Login']")
+	private WebElement login;
+	
 	@FindBy(xpath="//aside[@id='column-right']//a[text()='My Account']")
 	private WebElement myAccount;
 	
@@ -86,7 +89,11 @@ public class CommonElements
 		myAccount.click();
 	}
 	
-
+	public LogIn clickonRightColumnlogin()
+	{
+		login.click();
+		return new LogIn(localdriver);
+	}
 	
 	
 	

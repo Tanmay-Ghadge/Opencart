@@ -21,6 +21,7 @@ public class RegistrationObjects
 	WebDriver localdriver;
 	ActionDriver actionDriver=new ActionDriver();
 	CommonElements commonElements=new CommonElements(localdriver);
+	
 	public RegistrationObjects(WebDriver rdriver)  // which access modifier should a constructor have 
 	{
 		localdriver=rdriver;
@@ -75,10 +76,6 @@ public class RegistrationObjects
 
 
 	/*----------------------------page methods------------------------------*/
-
-
-
-	/*---------------------------------Methods-----------------------------*/
 
 	public void enterFirstName(String firstName)
 	{
@@ -287,7 +284,12 @@ public class RegistrationObjects
 		
 		return checkbox;
 	}
-	
+	 
+	public LogIn clickloginHyperLink()
+	{
+		loginHyperLink.click();
+		return new LogIn(localdriver);
+	}
 	
 }
 
