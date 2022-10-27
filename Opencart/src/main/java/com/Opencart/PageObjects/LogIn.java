@@ -1,7 +1,9 @@
 package com.Opencart.PageObjects;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -133,6 +135,21 @@ public class LogIn
 	public void setForgotPasswordLink(WebElement forgotPasswordLink) 
 	{
 		ForgotPasswordLink = forgotPasswordLink;
+	}
+	
+	public MyAccountPage loginByKeyBoard(String mail,String pwd) 
+	{
+		Actions act=new Actions(localdriver);
+		ActionDriver.actionClick(enterEmailTextbox);
+		act.moveToElement(enterEmailTextbox).click()
+		.sendKeys(mail)
+		.keyDown(Keys.TAB).keyUp(Keys.TAB)
+		.sendKeys(pwd)
+		.keyDown(Keys.ENTER).keyUp(Keys.ENTER)
+		.build().perform();
+		
+		return new MyAccountPage(localdriver);
+
 	}
 	
 	

@@ -1,34 +1,33 @@
 package com.Opencart.Base;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
 import java.util.Properties;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.BeforeSuite;
 
 import com.Opencart.PageObjects.HomePage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class Base {
 	public static WebDriver driver;
 	Properties propertiesfile;
 
+	@BeforeSuite
+	public void configureLog()
+	{
+       DOMConfigurator.configure("Log4j2.xml");
+	}
+	
 	
 	public void loadConfiguration() throws IOException {
 		propertiesfile = new Properties();

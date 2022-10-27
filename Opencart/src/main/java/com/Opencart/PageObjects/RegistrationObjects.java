@@ -125,9 +125,10 @@ public class RegistrationObjects
 
 	public AccountCreationSuccess submit() throws InterruptedException  {
 		actionDriver.scrollByDistance(localdriver, 0,700);
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		continueBTN.click();
 		System.out.println("clicked on submit");
+		Thread.sleep(1500);
 		return new AccountCreationSuccess(localdriver);	
 	}
 

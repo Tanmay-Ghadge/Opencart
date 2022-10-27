@@ -1,5 +1,8 @@
 package com.Opencart.actiondriver;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.util.List;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -139,6 +142,51 @@ public class ActionDriver
 		return flag;
 	}
 
+	public static boolean dropdownOptionispresent(List<WebElement> listOfOptions,String optionToChoose)
+	{
+		boolean flag=false;
+		try
+		{
+			for (WebElement eachoption : listOfOptions) 
+			{
+				String option=eachoption.getText();
+				if(option.equals(optionToChoose))
+				{
+					flag=true;
+					return flag;
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+			return false;
+		}
+		return flag;
+	}
+	
+	
+	public static void navigateback(WebDriver cdriver)
+	{
+		cdriver.navigate().back();
+	}
+	
+	public static void browserforwardBTN() throws AWTException
+	{
+		Robot robot=new Robot();
+		robot.mouseMove(50,50);
+		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+	}
+	
+	public static void browserBackwardBTN() throws AWTException
+	{
+		Robot robot=new Robot();
+		robot.mouseMove(23,50);
+		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+	}
+	
 	public static boolean dropdownoptions(WebElement location,String optionToChoose)
 	{
 		boolean flag=false;

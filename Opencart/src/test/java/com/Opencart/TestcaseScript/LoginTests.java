@@ -3,8 +3,10 @@ package com.Opencart.TestcaseScript;
 import java.io.IOException;
 import java.time.Duration;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,7 +18,9 @@ import com.Opencart.PageObjects.CommonElements;
 import com.Opencart.PageObjects.ForgotPassword;
 import com.Opencart.PageObjects.HomePage;
 import com.Opencart.PageObjects.LogIn;
+import com.Opencart.PageObjects.MyAccountPage;
 import com.Opencart.PageObjects.RegistrationObjects;
+import com.Opencart.Utility.Log;
 
 public class LoginTests extends Base 
 {
@@ -26,10 +30,8 @@ public class LoginTests extends Base
 	CommonElements commonElements;
 	LogIn loginObject;
 	ForgotPassword forgetPasswordObject;
+	MyAccountPage myAccountPageObject;
 	SoftAssert softAssert=new SoftAssert();
-
-
-
 
 	@BeforeMethod
 	void setup() throws IOException
@@ -41,7 +43,8 @@ public class LoginTests extends Base
 
 	}
 
-	@Test(dataProvider ="dataforLogin",dataProviderClass = Dataproviders.class)
+	@Test(description ="Validate logging into the Application using valid credentials", 
+			dataProvider ="dataforLogin",dataProviderClass = Dataproviders.class)
 	void validateLogin(String mail,String pwd) throws InterruptedException
 	{
 		homePageObject=new HomePage(driver);
@@ -55,26 +58,88 @@ public class LoginTests extends Base
 		softAssert.assertTrue(value,"failed to land on Log in Page");
 
 		boolean result1=loginObject.login(mail,pwd);
-		Assert.assertTrue(result1,"with valid mailID and password log in failed" );
+		Assert.assertTrue(result1,"with valid mailID and password failed to log in " );
+		
+	}
+	
+	@Test(description ="Validate logging into the Application using invalid credentials "
+			+ "(i.e. Invalid email address and Invalid Password)", 
+			dataProvider ="dataforLogin",dataProviderClass = Dataproviders.class)
+	void validateLogin2(String mail,String pwd) throws InterruptedException
+	{
+		homePageObject=new HomePage(driver);
+		boolean validationHomePage=homePageObject.pageValidation(driver);
+		softAssert.assertTrue(validationHomePage,"failed to land on Home page");
 
-		/*boolean result2=loginObject.login(a[1][0],a[1][1]);
+		commonElements=new CommonElements(driver);
+
+		loginObject=commonElements.selectMyaccountOptionLogin();
+		boolean value=loginObject.pageValidation(driver);
+		softAssert.assertTrue(value,"failed to land on Log in Page");
+
+		boolean result2=loginObject.login(mail,pwd);
 		Assert.assertFalse(result2,"with invalid mailID and invalid password user logged in" );
 
-		boolean result3=loginObject.login(a[2][0],a[2][1]);
-		Assert.assertFalse(result3,"with invalid username valid password user logged in " );
-
-		boolean result4=loginObject.login(a[3][0],a[3][1]);
-		Assert.assertFalse(result4,"with valid email invalid password user logged in");
-
-		boolean result5=loginObject.login(a[4][0],a[4][1]);
-		Assert.assertFalse(result5,"with no credentials user logged in");
-		 */
-
-
-
-
-
 	}
+	
+
+	@Test(description ="Validate logging into the Application using invalid email address and valid Password)", 
+			dataProvider ="dataforLogin",dataProviderClass = Dataproviders.class)
+	void validateLogin3(String mail,String pwd) throws InterruptedException
+	{
+		homePageObject=new HomePage(driver);
+		boolean validationHomePage=homePageObject.pageValidation(driver);
+		softAssert.assertTrue(validationHomePage,"failed to land on Home page");
+
+		commonElements=new CommonElements(driver);
+
+		loginObject=commonElements.selectMyaccountOptionLogin();
+		boolean value=loginObject.pageValidation(driver);
+		softAssert.assertTrue(value,"failed to land on Log in Page");
+
+		boolean result3=loginObject.login(mail,pwd);
+		Assert.assertFalse(result3,"with invalid username valid password user logged in " );
+	}
+	
+	@Test(description ="Validate logging into the Application using valid email address and invalid Password)", 
+			dataProvider ="dataforLogin",dataProviderClass = Dataproviders.class)
+	void validateLogin4(String mail,String pwd) throws InterruptedException
+	{
+		homePageObject=new HomePage(driver);
+		boolean validationHomePage=homePageObject.pageValidation(driver);
+		softAssert.assertTrue(validationHomePage,"failed to land on Home page");
+
+		commonElements=new CommonElements(driver);
+
+		loginObject=commonElements.selectMyaccountOptionLogin();
+		boolean value=loginObject.pageValidation(driver);
+		softAssert.assertTrue(value,"failed to land on Log in Page");
+		
+		boolean result4=loginObject.login(mail,pwd);
+		Assert.assertFalse(result4,"with valid email invalid password user logged in");	
+		
+	}
+	
+	@Test(description ="Validate logging into the Application without providing any credentials", 
+			dataProvider ="dataforLogin",dataProviderClass = Dataproviders.class)
+	void validateLogin5(String mail,String pwd) throws InterruptedException
+	{
+		homePageObject=new HomePage(driver);
+		boolean validationHomePage=homePageObject.pageValidation(driver);
+		softAssert.assertTrue(validationHomePage,"failed to land on Home page");
+
+		commonElements=new CommonElements(driver);
+
+		loginObject=commonElements.selectMyaccountOptionLogin();
+		boolean value=loginObject.pageValidation(driver);
+		softAssert.assertTrue(value,"failed to land on Log in Page");
+		
+		boolean result5=loginObject.login(mail,pwd);
+		Assert.assertFalse(result5,"with no credentials user logged in");
+		
+	}
+
+	
 
 	@Test(description ="Validate 'Forgotten Password' link is available in the Login page and is working")
 	void forgotPasswordValidation()
@@ -130,7 +195,6 @@ public class LoginTests extends Base
 		Assert.assertTrue(validationHomePage,"failed to land on Home page");
 
 		commonElements=new CommonElements(driver);
-
 		//approch 1
 		registrationObjects=commonElements.selectMyaccountOptionRegister();
 		boolean value=registrationObjects.pageValidation(driver);
@@ -140,14 +204,12 @@ public class LoginTests extends Base
 		softAssert.assertTrue(loginObject.pageValidation(driver),"failed to navigate to login page by approch 1");
 
 		homePageObject.clickOnLogo();
-
 		//approch 2
 		loginObject=commonElements.selectMyaccountOptionLogin();
 		boolean value2=loginObject.pageValidation(driver);
 		softAssert.assertTrue(value2,"failed to navigate to login page by approch 2");
 
 		homePageObject.clickOnLogo();
-
 		//approch 3
 		registrationObjects=commonElements.selectMyaccountOptionRegister();
 		loginObject=commonElements.clickonRightColumnlogin();
@@ -157,4 +219,60 @@ public class LoginTests extends Base
 		softAssert.assertAll();
 	}
 
+	@Test(description = "Validate logging into the Application using Keyboard keys (Tab and Enter)",
+	dataProvider ="dataforLogin",dataProviderClass = Dataproviders.class)
+	void loginByKeyboard(String mail,String pwd) throws InterruptedException
+	{
+
+		homePageObject=new HomePage(driver);
+		boolean validationHomePage=homePageObject.pageValidation(driver);
+		Assert.assertTrue(validationHomePage,"failed to land on Home page");
+
+		commonElements=new CommonElements(driver);
+
+		loginObject=commonElements.selectMyaccountOptionLogin();
+		boolean value2=loginObject.pageValidation(driver);
+		softAssert.assertTrue(value2,"failed to navigate to login page by approch 2");
+
+		myAccountPageObject=loginObject.loginByKeyBoard(mail,pwd);
+
+		boolean value=myAccountPageObject.pageValidation(driver);
+		Assert.assertTrue(value,"log in unsuccessful");
+		
+		softAssert.assertAll();
+		
+	}
+	
+	@Test(description ="Validate Logging into the Application and browsing back using Browser back button",
+			dataProvider ="dataforLogin",dataProviderClass = Dataproviders.class)
+	void login(String mail,String pwd) throws InterruptedException
+	{
+		Log.startTestCase("5555555555555556155555555551655555555");
+        Log.info("6555555555555555546588554661222222222222");
+		homePageObject=new HomePage(driver);
+		boolean validationHomePage=homePageObject.pageValidation(driver);
+		Assert.assertTrue(validationHomePage,"failed to land on Home page");
+
+		commonElements=new CommonElements(driver);
+
+		loginObject=commonElements.selectMyaccountOptionLogin();
+		boolean value2=loginObject.pageValidation(driver);
+		softAssert.assertTrue(value2,"failed to navigate to login page by approch 2");
+
+		myAccountPageObject=loginObject.loginByKeyBoard("tanmayghadge@gmail.com","tanmay");
+
+		boolean value=myAccountPageObject.pageValidation(driver);
+		Thread.sleep(2000);
+		Assert.assertTrue(value,"log in unsuccessful");
+	
+		//websites back button doesnt work
+		driver.navigate().back();
+		
+		Thread.sleep(2000);
+		driver.navigate().forward();
+		Thread.sleep(2000);
+		
+		boolean value3=myAccountPageObject.pageValidation(driver);
+		Assert.assertTrue(value3,"user was not able stay logged in");
+	}
 }

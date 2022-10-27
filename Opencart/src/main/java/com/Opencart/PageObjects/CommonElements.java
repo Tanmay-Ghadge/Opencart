@@ -83,8 +83,12 @@ public class CommonElements
 	@FindBy(xpath="//aside[@id='column-right']//a[text()='My Account']")
 	private WebElement myAccount;
 	
+	@FindBy(xpath="//aside[@id='column-right']//a[text()='Logout']")
+	private WebElement logout;
 	
-	void clickonMyAccountRight()
+	
+	
+	public void clickonMyAccountRight()
 	{
 		myAccount.click();
 	}
@@ -95,6 +99,16 @@ public class CommonElements
 		return new LogIn(localdriver);
 	}
 	
+	public LogoutPage clickonRightLogoutBtn()
+	{
+		logout.click();
+		return new LogoutPage(localdriver);
+	}
+	
+	public void  isDropdownOptionsPresent(String option)
+	{
+		logout.click();
+	}
 	
 	
 	
@@ -124,6 +138,14 @@ public class CommonElements
 		ActionDriver.dropdownUL(myaccountUL,"Login");
 		return new LogIn(localdriver);
 	}
+	
+	public LogoutPage selectMyaccountOptionLogout()
+	{
+		myAccountDropdown.click();
+		System.out.println("clicked on my account");
+		ActionDriver.dropdownUL(myaccountUL,"Logout");
+		return new LogoutPage(localdriver);
+	}
 
  	public void chooseBreadcrumbOption(String option)
 	{
@@ -143,5 +165,11 @@ public class CommonElements
     	return new RegistrationObjects(localdriver);
     }
 
+    public boolean isMyaccountOptionPresent(String option)
+    {
+    	boolean value=ActionDriver.dropdownOptionispresent(myaccountUL,option);
+    	return value;
+    }
+    
 
 }

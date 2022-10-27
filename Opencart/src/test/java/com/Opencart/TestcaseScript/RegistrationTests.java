@@ -53,7 +53,7 @@ public class RegistrationTests extends Base
 	 void fillRegistrationDetails1(Object [] a ) throws InterruptedException
 	{
 		boolean validationHomePage=homePageObject.pageValidation(driver);
-		softAssert.assertTrue(validationHomePage,"successfully landd on HomePage");
+		softAssert.assertTrue(validationHomePage,"successfully landed on HomePage");
 		commonElements=new CommonElements(driver);
 		registrationObjects=commonElements.selectMyaccountOptionRegister();
 		boolean validationRegistration=registrationObjects.pageValidation(driver);
@@ -69,18 +69,7 @@ public class RegistrationTests extends Base
 		accountCreationSuccessObject=new AccountCreationSuccess(driver);
 
 		boolean registrationSuccessful=accountCreationSuccessObject.pageValidation(driver);
-		softAssert.assertTrue(registrationSuccessful, "successfully registered");
-
-		String actualMessage=accountCreationSuccessObject.getSuccessmessage();
-		String expectedMessage="Congratulations! Your new account has been successfully created!\r\n"
-				+ "\r\n"
-				+ "You can now take advantage of member privileges to enhance your online shopping experience with us.\r\n"
-				+ "\r\n"
-				+ "If you have ANY questions about the operation of this online shop, please e-mail the store owner.\r\n"
-				+ "\r\n"
-				+ "A confirmation has been sent to the provided e-mail address. If you have not received it within the hour, please contact us.";
-
-		softAssert.assertEquals(actualMessage, expectedMessage, "correct message is shown");
+		Assert.assertTrue(registrationSuccessful, "failed to lan on account creation successful page");
 
 		softAssert.assertAll();
 	}
@@ -153,7 +142,7 @@ public class RegistrationTests extends Base
 		softAssert.assertAll();
 	}
 
-	@Test(description="//Validate Registering an Account when 'No' option is selected for Newsletter field",
+	@Test(description="Validate Registering an Account when 'No' option is selected for Newsletter field",
 			priority = 11,dataProvider ="dataforRegistration",dataProviderClass = Dataproviders.class)
 	void fillRegistrationDetails5(Object [] a) throws InterruptedException
 	{
@@ -275,7 +264,7 @@ public class RegistrationTests extends Base
 		softAssert.assertAll();
 	}
 
-	@Test(description ="Validate mandatory fields have * sign",priority = 4)
+	//@Test(description ="Validate mandatory fields have * sign",priority = 4)
 	void validateMandatoryFields()
 	{
 		boolean validationHomePage=homePageObject.pageValidation(driver);
@@ -326,9 +315,7 @@ public class RegistrationTests extends Base
 		registrationObjects.acceptPrivacyPolicy((boolean)a[5]);
 		registrationObjects.submit();
 
-		registrationObjects=commonElements.selectMyaccountOptionRegister();
-		registrationObjects.submit();
-		Thread.sleep(3000);
+		
 		
 		String firstNameerror="First Name must be between 1 and 32 characters!";
 		String lastNameerror="Last Name must be between 1 and 32 characters!";
@@ -364,7 +351,7 @@ public class RegistrationTests extends Base
 		
 		boolean value=registrationObjects.isSelctedPrivacyPolicyagreeCHK();
 		
-		Assert.assertTrue(value, "privacy policy checkbox is selected by default");
+		Assert.assertFalse(value, "privacy policy checkbox is selected by default");
 
 	}
 
@@ -405,24 +392,36 @@ public class RegistrationTests extends Base
 
 		registrationObjects=commonElements.selectMyaccountOptionRegister();
 		registrationObjects.pageValidation(driver);
-		softAssert.assertTrue(validationHomePage,"successfully landd on RegistrationPage");
+		softAssert.assertTrue(validationHomePage,"successfully landed on RegistrationPage");
 
 		//how to validate privacy policy error
 	}
 
 
-	void fillRegistrationDetailsdUPLICATE(Object [] a ) throws InterruptedException
+	@Test(description = "create users",
+	priority = 0,dataProvider ="dataforRegistration",dataProviderClass = Dataproviders.class)
+	void createUsers(Object [] a ) throws InterruptedException
 	{
+		boolean validationHomePage=homePageObject.pageValidation(driver);
+		softAssert.assertTrue(validationHomePage,"successfully landed on HomePage");
+		commonElements=new CommonElements(driver);
+		registrationObjects=commonElements.selectMyaccountOptionRegister();
+		boolean validationRegistration=registrationObjects.pageValidation(driver);
+		softAssert.assertTrue(validationRegistration,"successfully landed on RegistrationPage");
+
 		registrationObjects.enterFirstName(a[0].toString());
 		registrationObjects.enterLastName(a[1].toString());
 		registrationObjects.enterEmail(a[2].toString());
 		registrationObjects.enterpassword(a[3].toString());
 		registrationObjects.selectNewsletter((boolean)a[4]);
 		registrationObjects.acceptPrivacyPolicy((boolean)a[5]);
-		AccountCreationSuccess accountCreationSuccessObjects=registrationObjects.submit();
+		accountCreationSuccessObject=registrationObjects.submit();
+		accountCreationSuccessObject=new AccountCreationSuccess(driver);
 
-		boolean registrationSuccessful=accountCreationSuccessObjects.pageValidation(driver);
-		softAssert.assertTrue(registrationSuccessful, "successfully registered");
+		boolean registrationSuccessful=accountCreationSuccessObject.pageValidation(driver);
+		Assert.assertTrue(registrationSuccessful, "failed to lan on account creation successful page");
+
+		softAssert.assertAll();
 	} 
 	
 

@@ -5,39 +5,34 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class MyAccountPage
+import com.Opencart.actiondriver.ActionDriver;
+
+public class LogoutPage 
 {
-
 	WebDriver localdriver;
-	CommonElements commonElements  ;
-
-	public MyAccountPage(WebDriver rdriver)  // which access modifier should a constructor have 
+	ActionDriver actionDriver=new ActionDriver();
+	CommonElements commonElements=new CommonElements(localdriver);
+	
+	public LogoutPage(WebDriver rdriver)  // which access modifier should a constructor have 
 	{
 		localdriver=rdriver;
 		PageFactory.initElements(rdriver, this);
 	}
 
+	@FindBy(xpath="//h1[text()='Account Logout']")
+	private  WebElement pageHeading;
+	
 	@FindBy(xpath="//a[text()='Continue']")
-	private WebElement continueBtn;
-	
-	@FindBy(xpath="//a[text()='Subscribe / unsubscribe to newsletter']")
-	private WebElement newsLetterBtn;
-	
-	@FindBy(tagName ="h2")
-	private WebElement pageHeading;
-	
-	
-	
-/*----------------------------page methods------------------------------*/
+	private  WebElement continuebtn;
 	
 	
 	public boolean pageValidation(WebDriver driver)
 	{
 		String actualTitle=driver.getTitle();
-		String expectedTitle="My Account";
+		String expectedTitle="Account Logout";
 
 		String actualPageHeading=pageHeading.getText();
-		String expectedPageHeading="My Account";
+		String expectedPageHeading="Account Logout";
 
 //		String lastBreadcrumb=commonElements.getLastBreadcrumbOption();
 //		String actualLastBreadcrumb=lastBreadcrumb;
@@ -52,12 +47,18 @@ public class MyAccountPage
 		}
 
 	}
-	
-	public NewsLetter clickNewsLetter()
-	{
-		newsLetterBtn.click();
-		return new NewsLetter(localdriver);
-	}
 
+	public HomePage logoutContinue()
+	{
+		continuebtn.click();
+		return new HomePage(localdriver);
+	}
+	
+	
+	
+	
+	
 	
 }
+
+
