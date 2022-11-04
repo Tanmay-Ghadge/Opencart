@@ -53,9 +53,6 @@ public class BrowserFactory
 			break;
 
 
-		case "opera": WebDriverManager.operadriver().setup(); 
-		driver = new OperaDriver(); 
-		break;
 
 		default:
 			System.err.println("please enter valid browser name ");
