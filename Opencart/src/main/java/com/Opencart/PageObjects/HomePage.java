@@ -27,7 +27,11 @@ public class HomePage
 	@FindBy(xpath="//a[text()='Account']")
 	private WebElement accountBreadcrumb;
 	
-	
+	@FindBy(name="search")
+	private WebElement searchbox;
+
+	@FindBy(xpath="//*[@id=\"search\"]/button")
+	private WebElement searchButton;
 
 	
 	
@@ -63,6 +67,16 @@ public class HomePage
 		accountBreadcrumb.click();
 		return new LogIn(localDriver);
 	}
+	
+	public SearchedElements searchProduct(String productName )
+	{
+		searchbox.sendKeys();
+		searchButton.click();
+		return new SearchedElements(localDriver);
+	}
+	
+	
+	
 	
 	
 }

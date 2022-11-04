@@ -3,14 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.Opencart.TestcaseScript.LogoutTests">
+      <class name="com.Opencart.TestcaseScript.SearchProductTests">
         <methods>
-          <include name="setup"/>
-          <include name="configureLog"/>
-          <include name="logout4"/>
-          <include name="tearDown"/>
+          <include name="launchApplication"/>
+          <include name="teardown"/>
+          <include name="search1"/>
         </methods>
-      </class> <!-- com.Opencart.TestcaseScript.LogoutTests -->
+      </class> <!-- com.Opencart.TestcaseScript.SearchProductTests -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
