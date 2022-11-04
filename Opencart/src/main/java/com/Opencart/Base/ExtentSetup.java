@@ -30,6 +30,7 @@ public class ExtentSetup
 		extent.setSystemInfo("Executed on Browser", PropertiesOperations.getPropertiesValue("browser"));
 		extent.setSystemInfo("Executed on OS", System.getProperty("os.name"));
 		extent.setSystemInfo("Executed on user", System.getProperty("user.name"));
+		extent.setSystemInfo("Executed oby", PropertiesOperations.getPropertiesValue("username"));
 		
 		return extent;
 		
