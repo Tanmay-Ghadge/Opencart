@@ -21,13 +21,13 @@ public class ExtentReportThreadSafe
 
 	ThreadLocal<ExtentTest> extent=new ThreadLocal<ExtentTest>();
 
-	public ExtentTest getDriver()
+	public ExtentTest getExtent()
 	{
 		return extent.get();
 	}
 	
 	
-	public void setDriver(ExtentTest extentTestObject)
+	public void setextent(ExtentTest extentTestObject)
 	{
 		extent.set(extentTestObject);
 	}
