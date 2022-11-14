@@ -11,10 +11,47 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import com.Opencart.Base.ExtentReportThreadSafe;
+import com.aventstack.extentreports.Status;
+
 public class ActionDriver 
 {
 	public static WebDriver driver;
 
+	public void sendkeysCustom(WebElement element,String fieldName,String valueToEnter)
+	{
+		try
+		{
+			element.sendKeys(valueToEnter);
+			ExtentReportThreadSafe.getInstance().getExtent().log(Status.PASS,"successfully entered value--valueToEnter in field "+fieldName);
+		}
+		catch(Exception e)
+		{
+		 ExtentReportThreadSafe.getInstance().getExtent().log(Status.FAIL,"failed to enter value in field "+fieldName+" due to exception-->"+e);
+
+		}
+	}
+	
+	public void clickCustom(WebElement element,String fieldName,String valueToEnter)
+	{
+		try
+		{
+			element.click();
+			ExtentReportThreadSafe.getInstance().getExtent().log(Status.PASS,"successfully clicked on field -"+fieldName);
+		}
+		catch(Exception e)
+		{
+		 ExtentReportThreadSafe.getInstance().getExtent().log(Status.FAIL,"failed to click on field "+fieldName+" due to exception-->"+e);
+
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	public static boolean getpageTitle(WebDriver driver,String expectedTitle)
 	{
 		String actualPageTitle=driver.getTitle();
