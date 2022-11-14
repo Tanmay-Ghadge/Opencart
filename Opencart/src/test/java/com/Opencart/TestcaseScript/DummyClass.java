@@ -3,11 +3,12 @@ package com.Opencart.TestcaseScript;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
+import com.Opencart.Base.Base;
 import com.Opencart.Base.ExtentReportThreadSafe;
 import com.Opencart.Base.TestBase;
 import com.aventstack.extentreports.Status;
 
-public class DummyClass extends TestBase
+public class DummyClass extends Base
 {
 
 	@Test
